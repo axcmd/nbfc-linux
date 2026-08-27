@@ -1,0 +1,60 @@
+{
+    "NotebookModel": "Notebook Titanium B155 MAX",
+    "Author": "home-server",
+    "EcPollInterval": 1000,
+    "CriticalTemperature": 90,
+    "CriticalTemperatureOffset": 5,
+    "ReadWriteWords": false,
+    "LuaLibraries": [
+        "math"
+    ],
+    "FanConfigurations": [
+        {
+            "FanDisplayName": "CPU Fan",
+            "ReadLuaCode": [
+                "local e, hi = ec_read(0xD0)",
+                "if e then return e, 0 end",
+                "local e2, lo = ec_read(0xD1)",
+                "if e2 then return e2, 0 end",
+                "local count = (hi * 256) + lo",
+                "if count == 0 then return nil, 0 end",
+                "return nil, math.floor(2156250 / count)"
+            ],
+            "WriteRegister": 206,
+            "MinSpeedValue": 0,
+            "MaxSpeedValue": 100,
+            "IndependentReadMinMaxValues": true,
+            "MinSpeedValueRead": 1355,
+            "MaxSpeedValueRead": 4260,
+            "ResetRequired": true,
+            "FanSpeedResetValue": 0,
+            "TemperatureThresholds": [
+                {
+                    "UpThreshold": 80,
+                    "DownThreshold": 75,
+                    "FanSpeed": 100.0
+                },
+                {
+                    "UpThreshold": 70,
+                    "DownThreshold": 65,
+                    "FanSpeed": 75.0
+                },
+                {
+                    "UpThreshold": 60,
+                    "DownThreshold": 55,
+                    "FanSpeed": 50.0
+                },
+                {
+                    "UpThreshold": 50,
+                    "DownThreshold": 45,
+                    "FanSpeed": 25.0
+                },
+                {
+                    "UpThreshold": 40,
+                    "DownThreshold": 35,
+                    "FanSpeed": 0.0
+                }
+            ]
+        }
+    ]
+}
